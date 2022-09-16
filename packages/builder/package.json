@@ -1,0 +1,13 @@
+{
+  "name": "@pilabs/builder",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build-client": "node tools/build-client.js",
+    "build-server": "node tools/build-server.js"
+  },
+  "devDependencies": {
+    "esbuild": "0.15.7",
+    "esbuild-sass-plugin": "2.3.2"
+  }
+}

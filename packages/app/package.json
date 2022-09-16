@@ -1,0 +1,17 @@
+{
+  "name": "@pilabs/app",
+  "version": "1.0.0",
+  "main": "src/index.tsx",
+  "source": "src/index.tsx",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "18.0.20",
+    "@types/react-dom": "18.0.6"
+  }
+}

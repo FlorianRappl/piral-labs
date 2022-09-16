@@ -1,0 +1,14 @@
+{
+  "name": "piral-labs",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "typescript": "4.8.3"
+  },
+  "scripts": {
+    "client": "yarn workspace @pilabs/builder build-client && yarn workspace @pilabs/client start",
+    "server": "yarn workspace @pilabs/builder build-server && yarn workspace @pilabs/server start"
+  }
+}

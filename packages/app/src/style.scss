@@ -1,0 +1,25 @@
+$gutter: 1rem;
+
+ul.photos {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: $gutter;
+  flex-wrap: wrap;
+
+  li {
+    width: 12rem;
+    display: flex;
+    flex-direction: column;
+    background: #eee;
+    padding: $gutter;
+    justify-content: space-between;
+  }
+
+  h3 {
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+  }
+}
