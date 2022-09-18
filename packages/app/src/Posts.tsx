@@ -1,14 +1,17 @@
 import * as React from "react";
+import axios from "axios";
+import { useServer } from "@pilabs/utils";
 
 const Posts: React.FC = () => {
-  const [posts, setPosts] = React.useState([]);
-  [];
+  const [loaded, posts] = useServer(() => {
+    return axios
+      .get("https://jsonplaceholder.typicode.com/photos")
+      .then((res) => res.data.slice(0, 40));
+  });
 
-  React.useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/photos")
-      .then((res) => res.json())
-      .then((res) => setPosts(res.slice(0, 40)));
-  }, []);
+  if (!loaded) {
+    return <div>Loading ...</div>;
+  }
 
   return (
     <ul className="photos">

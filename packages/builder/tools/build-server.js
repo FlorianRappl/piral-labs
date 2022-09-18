@@ -1,5 +1,7 @@
 const esbuild = require("esbuild");
+const { codegenPlugin } = require("esbuild-codegen-plugin");
 const { sassPlugin } = require("esbuild-sass-plugin");
+const alias = require("esbuild-plugin-alias");
 const { writeFileSync, mkdirSync } = require("fs");
 const { resolve, dirname } = require("path");
 
@@ -19,6 +21,12 @@ esbuild
       ".html": "text",
       ".png": "file",
     },
+    plugins: [
+      codegenPlugin(),
+      alias({
+        "@pilabs/utils": require.resolve('@pilabs/utils/server'),
+      }),
+    ],
   })
   .then((res) => {
     const file = res.outputFiles.find((m) => m.path.endsWith("/index.js"));
@@ -41,6 +49,12 @@ esbuild
       loader: {
         ".png": "file",
       },
-      plugins: [sassPlugin()],
+      plugins: [
+        sassPlugin(),
+        codegenPlugin(),
+        alias({
+          "@pilabs/utils": require.resolve('@pilabs/utils/client'),
+        }),
+      ],
     });
   });

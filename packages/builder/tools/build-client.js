@@ -1,5 +1,6 @@
 const esbuild = require("esbuild");
 const { sassPlugin } = require("esbuild-sass-plugin");
+const { codegenPlugin } = require("esbuild-codegen-plugin");
 const { readFileSync, writeFileSync } = require("fs");
 const { resolve, dirname } = require("path");
 
@@ -18,7 +19,7 @@ esbuild
     loader: {
       ".png": "file",
     },
-    plugins: [sassPlugin()],
+    plugins: [sassPlugin(), codegenPlugin()],
   })
   .then(() => {
     const source = require.resolve("@pilabs/app/public/index.html");

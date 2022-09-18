@@ -7,8 +7,8 @@ const port = 3000;
 
 app.use(express.static(resolve(__dirname, "public")));
 
-app.get("/", (_, res) => {
-  res.send(render());
+app.get("/", async (_, res) => {
+  res.send(await render());
 });
 
 app.listen(port, () => {
