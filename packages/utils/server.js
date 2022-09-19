@@ -1,3 +1,5 @@
+import { createElement } from "react";
+
 export function useServer(cb) {
   const result = globalThis.getNextResult(cb);
 
@@ -7,3 +9,10 @@ export function useServer(cb) {
 
   return [true, result.current];
 }
+
+export const Island = ({ component, when = "load", uid = "_" }) => {
+  return createElement("island-root", {
+    children: createElement(component),
+    [`data-on-${when}`]: uid,
+  });
+};

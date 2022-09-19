@@ -1,0 +1,25 @@
+module.exports = () => {
+  const islands = process.env.ISLANDS || `[]`;
+  const files = JSON.parse(islands).map(
+    (island) =>
+      `${JSON.stringify(island.id)}: () => import(${JSON.stringify(
+        island.path
+      )}).then(e => e[${JSON.stringify(island.name)}])`
+  );
+
+  return `
+    const files = {
+      ${files.join(",")}
+    };
+
+    export function load(fn) {
+      const file = files[fn];
+
+      if (file) {
+        return file();
+      }
+
+      return Promise.reject("The given file was not found.");
+    }
+  `;
+};

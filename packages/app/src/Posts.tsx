@@ -1,6 +1,7 @@
 import * as React from "react";
 import axios from "axios";
-import { useServer } from "@pilabs/utils";
+import { Shuffle } from "./Shuffle";
+import { Island as Foo, useServer } from "@pilabs/utils";
 
 const Posts: React.FC = () => {
   const [loaded, posts] = useServer(() => {
@@ -14,14 +15,17 @@ const Posts: React.FC = () => {
   }
 
   return (
-    <ul className="photos">
-      {posts.map((post) => (
-        <li key={post.id}>
-          <h3>{post.title}</h3>
-          <img src={post.thumbnailUrl} alt={post.title} />
-        </li>
-      ))}
-    </ul>
+    <>
+      <ul className="photos">
+        {posts.map((post) => (
+          <li key={post.id}>
+            <h3>{post.title}</h3>
+            <img src={post.thumbnailUrl} alt={post.title} />
+          </li>
+        ))}
+      </ul>
+      <Foo component={Shuffle} when="idle" />
+    </>
   );
 };
 

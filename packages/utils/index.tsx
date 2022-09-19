@@ -23,3 +23,12 @@ export function useServer<T>(cb: () => Promise<T> | T) {
 
   return resource;
 }
+
+interface IslandProps {
+  component: React.FC;
+  when?: "visible" | "load" | "idle" | "event";
+}
+
+export const Island: React.FC<IslandProps> = ({ component: Component }) => {
+  return <Component />;
+};
