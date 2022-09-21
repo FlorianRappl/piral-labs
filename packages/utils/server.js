@@ -1,7 +1,10 @@
-import { createElement } from "react";
+import { createElement, createContext, useContext } from "react";
+
+const IslandContext = createContext(false);
 
 export function useServer(cb) {
-  const result = globalThis.getNextResult(cb);
+  const isIsland = useContext(IslandContext) || false;
+  const result = globalThis.getNextResult(cb, isIsland);
 
   if (typeof result === "undefined") {
     throw new Error("deferred");
@@ -11,8 +14,14 @@ export function useServer(cb) {
 }
 
 export const Island = ({ component, when = "load", uid = "_" }) => {
-  return createElement("island-root", {
-    children: createElement(component),
-    [`data-on-${when}`]: uid,
-  });
+  return createElement(
+    IslandContext.Provider,
+    {
+      value: true,
+    },
+    createElement("island-root", {
+      children: createElement(component),
+      [`data-on-${when}`]: uid,
+    })
+  );
 };

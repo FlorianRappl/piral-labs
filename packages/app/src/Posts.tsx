@@ -20,7 +20,13 @@ const Posts: React.FC = () => {
         {posts.map((post) => (
           <li key={post.id}>
             <h3>{post.title}</h3>
-            <img src={post.thumbnailUrl} alt={post.title} />
+            <img
+              src={post.thumbnailUrl}
+              alt={post.title}
+              loading="lazy"
+              width={150}
+              height={150}
+            />
           </li>
         ))}
       </ul>

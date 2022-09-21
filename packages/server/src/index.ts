@@ -7,8 +7,16 @@ const port = 3000;
 
 app.use(express.static(resolve(__dirname, "public")));
 
+let cachedResponse: string = undefined;
+
 app.get("/", async (_, res) => {
-  res.send(await render());
+  // logic could be more complicated, e.g.,
+  // vary on request headers and invalidate after time
+  if (!cachedResponse) {
+    cachedResponse = await render();
+  }
+
+  res.send(cachedResponse);
 });
 
 app.listen(port, () => {

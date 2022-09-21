@@ -6,7 +6,7 @@ import html from "@pilabs/app/public/index.html";
 async function makeContent(queue: Array<Promise<any> | any>) {
   let index = 0;
 
-  globalThis.getNextResult = (cb) => {
+  globalThis.getNextResult = (cb, isIsland) => {
     if (queue.length > index) {
       return queue[index++];
     }
@@ -14,22 +14,18 @@ async function makeContent(queue: Array<Promise<any> | any>) {
     const p = cb();
 
     if (p instanceof Promise) {
-      queue[index] = p;
+      queue[index] = p.then((r) => (queue[index] = { current: r, isIsland }));
       return undefined;
     }
 
-    return (queue[index] = { current: p });
+    return (queue[index] = { current: p, isIsland });
   };
 
   try {
     return renderToString(<App />);
   } catch (err) {
     if (err instanceof Error && err.message === "deferred") {
-      await Promise.all(
-        queue.map((p, i) =>
-          p instanceof Promise ? p.then((r) => (queue[i] = { current: r })) : p
-        )
-      );
+      await Promise.all(queue);
       return await makeContent(queue);
     } else {
       console.log("Could not render", err);
@@ -41,18 +37,23 @@ async function makeContent(queue: Array<Promise<any> | any>) {
 export async function render() {
   const queue = [];
   const content = await makeContent(queue);
-  const data = queue.map((q) => q.current);
+  const data = queue.filter((q) => q.isIsland).map((q) => q.current);
+  const dataScript =
+    data.length > 0
+      ? `
+    <script>
+      let i = 0;
+      const data = ${JSON.stringify(data)};
+      window.$serverResult = () => data[i++];
+    </script>
+  `
+      : "";
+  const appScript = `<script src="app.js" type="module" async></script>`;
 
   return html
     .replace(
       '<div id="app"></div>',
-      `<div id="app">${content}</div>
-       <script>
-         let i = 0;
-         const data = ${JSON.stringify(data)};
-         window.$serverResult = () => data[i++];
-       </script>
-       <script src="app.js" type="module"></script>`
+      `<div id="app">${content}</div>${dataScript}${appScript}`
     )
     .replace("</head>", '<link href="app.css" rel="stylesheet"></head>');
 }
