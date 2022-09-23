@@ -57,6 +57,9 @@ esbuild
         codegenPlugin(),
         alias({
           "@pilabs/utils": require.resolve("@pilabs/utils/client"),
+          "react": require.resolve("preact/compat"),
+          "react-dom": require.resolve("preact/compat"),
+          "react-dom/client": require.resolve("preact/compat/client"),
         }),
       ],
     });

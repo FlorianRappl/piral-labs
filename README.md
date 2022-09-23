@@ -44,7 +44,13 @@ Problem: The script is still quite large preventing a perfect lighthouse score. 
 
 ## Making it Efficient
 
+**Branch:** phases/5-efficient
+
 (tbd)
+
+If we switch from React to Preact (with compatibility layer) we can reduce the initial minified JavaScript from 160 kB to 10 kB, which is massive. Even better, we can introduce dynamic script loading, such that dependencies such as Preact are loaded (and shared) in chunks.
+
+Problem: While the overall performance is now at 100 we have to face the difficulty of distributed computing. What if micro frontends are contributed to the website? How can we efficiently load this?
 
 ## Adding Micro Frontends
 
