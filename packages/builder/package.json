@@ -4,7 +4,9 @@
   "main": "index.js",
   "scripts": {
     "build-client": "node tools/build-client.js",
-    "build-server": "node tools/build-server.js"
+    "build-server": "node tools/build-server.js",
+    "build-discovery": "node tools/build-discovery.js",
+    "build-mf": "node tools/build-mf.js"
   },
   "devDependencies": {
     "@babel/parser": "7.19.1",

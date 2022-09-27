@@ -32,3 +32,11 @@ interface IslandProps {
 export const Island: React.FC<IslandProps> = ({ component: Component }) => {
   return <Component />;
 };
+
+interface DynamicComponentProps {
+  name: string;
+}
+
+export const DynamicComponent: React.FC<DynamicComponentProps> = ({ name }) => {
+  return <component-root name={name}></component-root>;
+};

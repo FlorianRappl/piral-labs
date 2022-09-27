@@ -20,5 +20,5 @@ app.get("/", async (_, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`👽 Running on http://localhost:${port}`);
+  console.log(`👽 [application] Running on http://localhost:${port}`);
 });

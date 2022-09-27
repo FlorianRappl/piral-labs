@@ -54,6 +54,8 @@ Problem: While the overall performance is now at 100 we have to face the difficu
 
 ## Adding Micro Frontends
 
+**Branch:** phases/6-micro-frontends
+
 (tbd)
 
 ## Conclusion
